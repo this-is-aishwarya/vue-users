@@ -25,9 +25,6 @@
             </tr>
         </table>
 
-        <div v-observe-visibility="handleScrolledToBottom">
-
-        </div>
     </div>
     
 </template>
@@ -43,12 +40,6 @@ import axios from 'axios';
                 recordList: [],
                 search: ''
             };
-        },
-
-        methods: {
-            handleScrolledToBottom() {
-                console.log("abc");
-            }
         },
 
         computed: {

@@ -3,7 +3,6 @@
   <div class="container">
     <Record />
   </div>
-   <div v-observe-visibility="handleScrolledToBottom"></div>
 </template>
 
 <script>
@@ -15,11 +14,6 @@ export default {
     Header,
     Record,
   },
-  methods: {
-            handleScrolledToBottom() {
-                console.log("abc");
-            }
-        }
 }
 </script>
 

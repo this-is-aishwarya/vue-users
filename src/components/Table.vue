@@ -1,5 +1,5 @@
 <template>
-    <section class="awesome-table">
+    <div class="record-table">
         <table>
             <thead>
                 <tr>
@@ -11,16 +11,12 @@
             <tbody>
                 <tr v-for="(row, index) in theData" :key="index">
                     <td v-for="(obj, ind) in config" :key="ind">
-                        <span v-if="obj.type === 'text'">{{row[obj.key]}}</span>
-                        <span v-if="obj.type === 'date'">{{new Date(row[obj.key]).toLocaleDateString()}} </span>
-                        <figure v-if="obj.type === 'image'">
-                            <img :src="row[obj.key]" height="60px">
-                        </figure>
+                        {{row[obj.key]}}
                     </td>
                 </tr>
             </tbody>
         </table>
-    </section>
+    </div>
 </template>
 
 <script>
@@ -31,44 +27,53 @@ export default {
 
 <style lang="scss">
 
-.awesome-table {
-    border: 1px solid #999;
-    border-radius: 4px;
-    color: #333;
-    overflow: auto;
-
-    figure {
-        margin-block-start: 0;
-        margin-block-end: 0;
-        margin-inline-start: 0;
-        margin-inline-end: 0;
-
-        img {
-            border: 1px solid #bbb;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-    }
-
-    table {
-        border-collapse: collapse;
-        width: 100.1%;
-
-        th {
-            position: sticky;
-            top: 0;
-            background: #ccc;
-            padding: 10px 5px;
-            text-align: left;
-            border-bottom: 1px solid #999;
-        }
+    .record-table{
+        overflow: auto;
+        justify-content: center;
+        align-items: center;
+        color: #4f546c;
+        background-color: #f9fbff;
+        font-family: Mukta, sans-serif;
         
-        td {
-            padding: 5px 5px;
-            text-align: left;
-        }
     }
-}
+    table {
+        margin: 10px;
+        margin-left: auto;  
+        margin-right: auto;  
+        border-collapse: collapse;
+        box-shadow: 0 5px 10px #e1e5ee;
+        background-color: white;
+        text-align: left;
+        width: 100%;
+    }
+
+    table thead {
+        box-shadow: 0 5px 10px #e1e5ee;
+        background-color: rgb(235, 188, 223);
+        position: sticky;
+        top: 0;
+    }
+
+    table thead tr{
+        position: sticky;
+        top: 0;
+    }
+
+    table thead th {
+        padding: 1rem 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+        font-size: 0.7rem;
+        font-weight: 900;
+    }
+
+    table td {
+        padding: 1rem 2rem;
+    } 
+    
+   table tr:nth-child(even) {
+        background-color: #f4f6fb;
+    }
 
 
 </style>

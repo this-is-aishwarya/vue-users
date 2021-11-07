@@ -1,6 +1,15 @@
 .<template>
     <div class="record-section">
-        <input type="search" v-model="filter" placeholder="Enter ID or Name">
+
+        <!-- Search Input Field -->
+        <div class="wrapper">
+            <div class="input">
+                <input type="search" v-model="filter" placeholder=" Enter ID or Name">
+                <span class="bubble">Search</span>
+            </div>
+        </div>
+
+        <!-- User List Table -->
         <table id="dataTable">
             <thead>
                 <tr>
@@ -27,6 +36,7 @@
 
         </table>
 
+        <!-- Pagination -->
         <div class="navigation" aria-label="Page navigation">
             <ul>
                 <li class="num">
@@ -34,17 +44,21 @@
                     <span class="control" aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
+
                 <li class="num">
                     <a href="#" v-if="page != 1" @click="page--" aria-label="Previous">
                     <span class="control" aria-hidden="true">&lsaquo;</span>
                     </a>
                 </li>
+
                 <li class="num" v-for="pageNumber in pages.slice(page-1, page+4)" :class="{'active': page === pageNumber}" :key="pageNumber"><a href="#" @click="page = pageNumber"><span>{{pageNumber}}</span></a></li>
+
                 <li class="num">
                     <a href="#" @click="page++" v-if="page < pages.length" aria-label="Next">
                     <span class="control" aria-hidden="true">&rsaquo;</span>
                     </a>
                 </li>
+                
                 <li class="num">
                     <a href="#" @click="page = pages.length" aria-label="Last">
                     <span class="control" aria-hidden="true">&raquo;</span>
@@ -52,6 +66,7 @@
                 </li>
             </ul>
         </div>
+
     </div>
 </template>
 
@@ -64,15 +79,16 @@ import axios from 'axios';
                 loading: true,
                 errored: false,
                 page: 1,
-                perPage: 5,
+                perPage: 100,
                 pages: [],
                 filter: '',
             }
         },
         methods: {
+
+            // Rendering JSON data with Axios
             getUsers(){
-                axios
-                .get('data.json')
+                axios.get('data.json')
                 .then(response => {
                     this.users = response.data.objects
                 })
@@ -89,6 +105,7 @@ import axios from 'axios';
                     this.pages.push(index);
                 }
             },
+
             paginate(users) {
                 var page = this.page;
                 var perPage = this.perPage;
@@ -97,68 +114,56 @@ import axios from 'axios';
                 return users.slice(from, to);
             },
         },
+
         created() {
             this.getUsers();
         },
+
         watch: {
             users() {
                 this.setPages();
             },
             filter() {
-                console.log('reset to p1 due to filter');
+                console.log('Resetting to Page 1 due to filter');
                 this.page = 1;
             }
         },
+
         computed: {
             filteredRecords() {
                 return this.users.filter((user) => {
                     return user.ID == this.filter || user.FirstNameLastName.match(this.filter) ;
-                });
-
-                // return this.users.filter((user) =>{
-                //     return user.ID == 11;
-                // });                           
+                });                          
             },
-
             
             displayedUsers() {
                 return this.paginate(this.filteredRecords);
             },
         },
-        // filters: {
-        //     lowercase(value) {
-        //         return value.toLowerCase();
-        //     },
-        //     capitalize(value) {
-        //         return value.charAt(0).toUpperCase() + value.slice(1);
-        //     }
-        // }
 };
 </script>
 
 <style scoped>
+
     .record-table{
-        display: grid;
+        overflow: auto;
         justify-content: center;
         align-items: center;
         color: #4f546c;
         background-color: #f9fbff;
         font-family: Mukta, sans-serif;
     }
-    input[type="search"]::placeholder {    
-        text-align: center;
-    }
+    
     table {
         border-collapse: collapse;
         box-shadow: 0 5px 10px #e1e5ee;
         background-color: white;
         text-align: left;
-        overflow: hidden;
     }
 
     table thead {
         box-shadow: 0 5px 10px #e1e5ee;
-        background-color: rgb(235, 188, 223);
+        background-color: rgb(235, 188, 223);        
     }
 
     table thead th {
@@ -194,7 +199,7 @@ import axios from 'axios';
 
     .control{
         padding: 10px 20px;
-        background-color: #e91e62e1;
+        background-color: rgb(236, 170, 220);
         color: #fff;
     }
 
@@ -212,5 +217,60 @@ import axios from 'axios';
         text-align: center;
         cursor: pointer;
         transition: 0.75s;
+    }
+
+    .wrapper{
+        padding: 20px;
+        margin: auto;
+    }
+
+    .input{
+        position: relative;
+        display: flex;
+        height: 4rem;
+        border: 0;
+        border-radius: 4rem;
+        background: rgb(247, 235, 244);
+    }
+
+    .bubble{
+        position: absolute;
+        top: 0.25rem;
+        left: 0.5rem;
+        display: grid;
+        place-items: center;
+        height: 3rem;
+        width: 6rem;
+        font-size: 0.875rem;
+        border-radius: inherit;
+        background: #363472;
+        color: #fff;
+        pointer-events: none;
+        transition: all 0.35s;
+        letter-spacing: 1px;
+    }
+
+    input {
+        flex: 1 1 auto;
+        padding-left: 6.5rem;
+        height: inherit;
+        border: 0;
+        outline: none;
+        background: transparent;
+        font-size: 1rem;
+        text-indent: 0.625rem;
+        transition: all 0.35s;
+    }
+
+    input::placeholder {
+        color: #9b9ba5;
+    }
+
+    input:focus {
+        transform: translateX(-6rem);
+    }
+
+    input:focus ~ span {
+        transform: translateY(-4rem);
     }
 </style>

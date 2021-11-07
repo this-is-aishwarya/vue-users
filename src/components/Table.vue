@@ -95,7 +95,7 @@ import axios from 'axios';
                 var from = (page * perPage) - perPage;
                 var to = (page * perPage);
                 return users.slice(from, to);
-            }
+            },
         },
         created() {
             this.getUsers();
@@ -112,9 +112,15 @@ import axios from 'axios';
         computed: {
             filteredRecords() {
                 return this.users.filter((user) => {
-                    return user.ID.match(this.filter) || user.FirstNameLastName.match(this.filter) ;
+                    return user.ID == this.filter || user.FirstNameLastName.match(this.filter) ;
                 });
+
+                // return this.users.filter((user) =>{
+                //     return user.ID == 11;
+                // });                           
             },
+
+            
             displayedUsers() {
                 return this.paginate(this.filteredRecords);
             },

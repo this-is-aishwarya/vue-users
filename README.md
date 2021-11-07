@@ -1,4 +1,4 @@
-# Displaying 20k User Records
+# User Records
 
 A web interface that allows users to view all records, and search across them.
 

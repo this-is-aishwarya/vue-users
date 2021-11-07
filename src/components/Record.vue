@@ -1,5 +1,5 @@
 <template>
-    <!-- <input type="text" v-model="search" placeholder="Enter ID or Name"> -->
+    <input type="text" v-model="search" placeholder="Enter ID or Name">
     <div class="record-table">
         <table>
             <thead>
@@ -37,6 +37,7 @@ import axios from 'axios';
         name: "Record",
         data() {
             return{
+                isLoading: true,
                 recordList: [],
                 search: ''
             };
@@ -52,7 +53,10 @@ import axios from 'axios';
 
         async mounted(){
             // fetch("userdata.json").then(response => response.json()).then(data => (this.recordList = data));
-            axios.get("userdata.json").then(response => {this.recordList = response.data.objects});
+            axios.get("userdata.json").then(response => {
+                this.recordList = response.data.objects
+                this.isLoading = true
+                });
         }
 
 };

@@ -1,18 +1,23 @@
 <template>
   <Header />
   <div class="container">
-    <Record />
+    <!-- <Record /> -->
+    <Table />
   </div>
 </template>
 
 <script>
+
 import Header from '@/components/Header'
-import Record from '@/components/Record.vue'
+// import Record from '@/components/Record.vue'
+import Table from '@/components/Table.vue'
+
 export default {
   name: 'App',
   components: {
     Header,
-    Record,
+    // Record,
+    Table
   },
 }
 </script>

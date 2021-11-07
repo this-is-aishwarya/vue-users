@@ -1,4 +1,10 @@
-# userlist
+# Displaying 20k User Records
+
+A web interface that allows users to view all records, and search across them.
+
+## Deployed Link
+
+***Click here*** : https://this-is-aishwarya.github.io/vue-users/
 
 ## Project setup
 ```
@@ -20,5 +26,3 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
